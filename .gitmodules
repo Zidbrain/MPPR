@@ -1,0 +1,3 @@
+[submodule "Lab3/MPPR"]
+	path = Lab3/MPPR
+	url = git@github.com:iu5git/MPPR.git
