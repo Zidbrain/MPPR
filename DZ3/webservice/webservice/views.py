@@ -5,7 +5,8 @@ import numpy as np
 from PIL import Image  
 from io import BytesIO  
 import base64  
-from torchvision import transforms   
+from torchvision import transforms
+from django.conf import settings
   
 imageClassList = {15: 'camel', 45: 'lobster', 75: 'skunk'}  #Сюда указать классы  
    
@@ -16,7 +17,7 @@ def predictImage(request):
     fileObj = request.FILES['filePath']  
     fs = FileSystemStorage()  
     filePathName = fs.save('images/'+fileObj.name,fileObj)  
-    filePathName = fs.url(filePathName)  
+    filePathName = settings.MEDIA_URL + filePathName #fs.url(filePathName)  
     modelName = request.POST.get('modelName')  
     scorePrediction, img_uri = predictImageData(modelName, '.'+filePathName)  
     context = {'scorePrediction': scorePrediction, 'filePathName': filePathName, 'img_uri': img_uri}  

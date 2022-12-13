@@ -6,3 +6,4 @@ venv/
 cifar100_CNN_RESNET20.onnx
 *.sqlite3
 __pycache__
+*.jpg
