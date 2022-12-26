@@ -23,6 +23,7 @@
   }
   </style>
 <script src="snake_weights.js"></script>
+<script src="snake_weights2.js"></script>
 </head>
 <body>
 <canvas width="400" height="400" id="game"></canvas>
@@ -88,9 +89,10 @@ function getFeatures() {
 function getAction() {
     var feats = getFeatures();
     var actionsLikelyhood = [0, 0, 0, 0];
-    for (var i = 0; i < W[0].length; i++) {
-        for (var j = 0; j < W.length; j++) {
-            actionsLikelyhood[i] += W[j][i]*feats[j];
+    var W0 = (snake.cells.length > 25) ? W2 : W;
+    for (var i = 0; i < W0[0].length; i++) {
+        for (var j = 0; j < W0.length; j++) {
+            actionsLikelyhood[i] += W0[j][i]*feats[j];
         }
     }
     console.log(actionsLikelyhood);
@@ -165,7 +167,7 @@ function loop() {
   context.fillRect(apple.x, apple.y, grid-1, grid-1);
 
   // draw snake one cell at a time
-  context.fillStyle = 'green';
+  context.fillStyle = (snake.cells.length > 25) ? 'yellow' : 'green';
   snake.cells.forEach(function(cell, index) {
 
     // drawing 1 px smaller than the grid creates a grid effect in the snake body so you can see how long it is
@@ -198,6 +200,8 @@ function loop() {
 
         apple.x = getRandomInt(0, 25) * grid;
         apple.y = getRandomInt(0, 25) * grid;
+
+        score = 0;
       }
     }
   });
